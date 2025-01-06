@@ -19,7 +19,7 @@ jobs:
         ref: dev
     - name: Install dependencies
       run: |
-        apt install -y build-essential liblzma-dev
+        sudo apt install -y build-essential liblzma-dev
     - name: Compile program
       run: |
         make
