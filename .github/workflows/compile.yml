@@ -1,0 +1,30 @@
+name: Compile
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set time zone
+      run: sudo timedatectl set-timezone 'Asia/Shanghai'
+    - name: Checkout codes
+      uses: actions/checkout@v4
+      with:
+        ref: dev
+    - name: Install dependencies
+      run: |
+        apt install -y build-essential liblzma-dev
+    - name: Compile program
+      run: |
+        make
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          hardnested_main
